@@ -2,7 +2,8 @@ program Project1;
 
 uses
   Vcl.Forms,
-  Unit1 in 'Unit1.pas' {Form1};
+  Attribute in 'Attribute.pas',
+  Main in 'Main.pas' {Form1};
 
 {$R *.res}
 
