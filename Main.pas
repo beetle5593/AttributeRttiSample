@@ -3,13 +3,13 @@ unit Main;
 interface
 
 uses
-  Winapi.Messages, Winapi.Windows, System.Classes, System.SysUtils, 
-  System.Variants, Vcl.Controls, Vcl.Dialogs, Vcl.Forms, Vcl.Graphics, 
-  Vcl.StdCtrls;
+  Winapi.Windows, System.Classes, Vcl.Controls, Vcl.Forms, Vcl.StdCtrls;
 
 type
   TForm1 = class(TForm)
-    procedure AfterConstruction; override;
+    btnSave: TButton;
+    procedure btnLoadClick(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -22,18 +22,25 @@ var
 implementation
 
 uses
-  Attribute;
+  ConfigSetting;
 
 {$R *.dfm}
 
-
-{ TForm1 }
-
-procedure TForm1.AfterConstruction;
+procedure TForm1.btnLoadClick(Sender: TObject);
 begin
-  inherited;
-  var T := TTest.Create('Test');
-  TTest.ShowAttribute(T);
+  var T := TConfigSetting.Create;
+  T.Load;
+  OutputDebugString(PChar(T.ToString));
+end;
+
+procedure TForm1.btnSaveClick(Sender: TObject);
+begin
+  var T := TConfigSetting.Create;
+  T.Connectstring := '\\198.162.0.1\Database';
+  T.LogLevel := 0;
+  T.LogDirectory := '\Log';
+
+  T.Save;
 end;
 
 end.
